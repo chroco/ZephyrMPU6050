@@ -1,0 +1,38 @@
+
+/ {
+	chosen {
+		zephyr,console = &cdc_acm_uart0;
+	};
+};
+
+&zephyr_udc0 {
+	cdc_acm_uart0: cdc_acm_uart0 {
+		compatible = "zephyr,cdc-acm-uart";
+	};
+};
+
+&lpi2c1 {
+	status = "okay";
+	mpu6050@68 {
+		compatible = "invensense,mpu6050";
+		reg = <0x68>;
+		status = "okay";
+		int-gpios = <&gpio1 22 GPIO_ACTIVE_HIGH>;
+	};
+	
+	bmp390@77 {
+		compatible = "bosch,bmp390";
+		reg = <0x77>;
+		status = "okay";
+		int-gpios = <&gpio1 23 GPIO_ACTIVE_HIGH>;
+		odr = "200";
+		osr-press = <1>;
+		osr-temp = <1>;
+		iir-filter = <3>;
+
+		label = "BMP390";
+	};
+};
+
+
+
